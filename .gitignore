@@ -1,0 +1,11 @@
+.idea/
+venv
+__pycache__/
+*.pyc
+working.py
+*.txt
+*.csv
+roboczy.py
+roboczy2.py
+Characters.txt
+
