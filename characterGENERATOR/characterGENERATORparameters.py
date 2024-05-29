@@ -1,17 +1,20 @@
-welcomeText = """Welcome in WFRP 2ed characterGENERATOR
+welcomeText = """Welcome in WFRP 2ed character generator
 This app helps you generate all playable characters. 
 You can do it step by step, or make it totally random,
 according to WFRP base handbook. 
 
+Type [h]elp for list of usable commands
+
 Default language is english, you can set up polish in menu
 Domyślnym językiem jest angielski, możesz zmienić na polski w menu
+
 """
 
 mainMenu = ["1. Create humanoid - step by step",
             "2. Create humanoid - random",
-            "3. Create busted humanoid - step by step",
-            "4. Create double-busted humanoid - step by step",
-            "5. Create triple-busted humanoid - step by step",
+            "3. Create boosted humanoid - step by step",
+            "4. Create double-boosted humanoid - step by step",
+            "5. Create triple-boosted humanoid - step by step",
             "6. Zmień język na polski [in progress]",
             "7. Save to file",
             "8. Exit"]
@@ -141,15 +144,17 @@ humanoidCharacterClasses = {
         "classMainStats": ["wp", "int", "fel"]
     }
 }
-busters = {
-    "bustersMainStats": [10, 25, 40],
-    "bustersOtherStats": [5, 10, 15],
-    "busterAtack": [0, 1, 2],
-    "busterWounds": [2, 4, 8]
+boosters = {
+    "boostersMainStats": [10, 25, 40],
+    "boostersOtherStats": [5, 10, 15],
+    "boosterAttack": [0, 1, 2],
+    "boosterWounds": [2, 4, 8]
 }
 
-bustersMainStats = [15, 30, 40]
-bustersOtherStats = [5, 10, 15]
+guiBoosters = ["no boost", "single boost", "double boost", "triple boost"]
+
+boostersMainStats = [15, 30, 40]
+boostersOtherStats = [5, 10, 15]
 
 racesTuple = "Human", "Elf", "Dwarf", "Halfing"
 

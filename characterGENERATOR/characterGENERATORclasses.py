@@ -95,10 +95,10 @@ id:{self.simpleId}
 class StepHumanoid:
     instances = {}
 
-    def __init__(self, race, name, characterClass, classMainStats, bust, language="eng"):
-        self.bust = bust
+    def __init__(self, race, name, characterClass, classMainStats, boost, language="eng"):
+        self.boost = boost
         self.characterClass = self.characterClassChoice(characterClass)
-        self.buster()
+        self.booster()
         self.language = language
         self.race = self.raceChoice(race)
         self.name = self.nameChoice(name, self.race)
@@ -110,18 +110,18 @@ class StepHumanoid:
 
         for stat in self.classMainStats:
             setattr(self, stat, max(self.randomStats) + characterGENERATORparameters.humanoidRacesStats[self.race][stat]
-                    + self.bustMainStats)
+                    + self.boostMainStats)
             self.randomStats.pop()
 
         for stat in self.classOtherStats:
             setattr(self, stat, max(self.randomStats) + characterGENERATORparameters.humanoidRacesStats[self.race][stat]
-                    + self.bustOtherStats)
+                    + self.boostOtherStats)
             self.randomStats.pop()
 
-        self.a = characterGENERATORparameters.humanoidRacesStats[self.race]["a"] + self.bustAtack
+        self.a = characterGENERATORparameters.humanoidRacesStats[self.race]["a"] + self.boostAtack
         self.w = (random.choices(characterGENERATORparameters.humanoidRacesStats[self.race]["wValues"],
                                  characterGENERATORparameters.humanoidRacesStats[self.race]["wWeights"])[0]
-                  + self.bustWounds)
+                  + self.boostWounds)
         self.sb = (self.s // 10)
         self.tb = (self.t // 10)
         self.m = characterGENERATORparameters.humanoidRacesStats[self.race]["m"]
@@ -186,44 +186,44 @@ class StepHumanoid:
             self.classOtherStats = [stat for stat in characterGENERATORparameters.stats if
                                     stat not in self.classMainStats]
 
-    def buster(self):
-        self.bustMainStats = 0
-        self.bustOtherStats = 0
-        self.bustAtack = 0
-        self.bustWounds = 0
-        if self.bust == 1:
-            self.bustMainStats = characterGENERATORparameters.busters["bustersMainStats"][0]
-            self.bustOtherStats = characterGENERATORparameters.busters["bustersOtherStats"][0]
+    def booster(self):
+        self.boostMainStats = 0
+        self.boostOtherStats = 0
+        self.boostAtack = 0
+        self.boostWounds = 0
+        if self.boost == 1:
+            self.boostMainStats = characterGENERATORparameters.boosters["boostersMainStats"][0]
+            self.boostOtherStats = characterGENERATORparameters.boosters["boostersOtherStats"][0]
             if self.characterClass in [characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"],
                                        characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"],
                                        characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["class"]]:
-                self.bustAtack = characterGENERATORparameters.busters["busterAtack"][0]
-                self.bustWounds = characterGENERATORparameters.busters["busterWounds"][0]
+                self.boostAtack = characterGENERATORparameters.boosters["boosterAtack"][0]
+                self.boostWounds = characterGENERATORparameters.boosters["boosterWounds"][0]
             else:
-                self.bustAtack = 0
-                self.bustWounds = 0
-        elif self.bust == 2:
-            self.bustMainStats = characterGENERATORparameters.busters["bustersMainStats"][1]
-            self.bustOtherStats = characterGENERATORparameters.busters["bustersOtherStats"][1]
+                self.boostAtack = 0
+                self.boostWounds = 0
+        elif self.boost == 2:
+            self.boostMainStats = characterGENERATORparameters.boosters["boostersMainStats"][1]
+            self.boostOtherStats = characterGENERATORparameters.boosters["boostersOtherStats"][1]
             if self.characterClass in [characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"],
                                        characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"],
                                        characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["class"]]:
-                self.bustAtack = characterGENERATORparameters.busters["busterAtack"][1]
-                self.bustWounds = characterGENERATORparameters.busters["busterWounds"][1]
+                self.boostAtack = characterGENERATORparameters.boosters["boosterAtack"][1]
+                self.boostWounds = characterGENERATORparameters.boosters["boosterWounds"][1]
             else:
-                self.bustAtack = 0
-                self.bustWounds = characterGENERATORparameters.busters["busterWounds"][0]
-        elif self.bust == 3:
-            self.bustMainStats = characterGENERATORparameters.busters["bustersMainStats"][2]
-            self.bustOtherStats = characterGENERATORparameters.busters["bustersOtherStats"][2]
+                self.boostAtack = 0
+                self.boostWounds = characterGENERATORparameters.boosters["boosterWounds"][0]
+        elif self.boost == 3:
+            self.boostMainStats = characterGENERATORparameters.boosters["boostersMainStats"][2]
+            self.boostOtherStats = characterGENERATORparameters.boosters["boostersOtherStats"][2]
             if self.characterClass in [characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"],
                                        characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"],
                                        characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["class"]]:
-                self.bustAtack = characterGENERATORparameters.busters["busterAtack"][2]
-                self.bustWounds = characterGENERATORparameters.busters["busterWounds"][2]
+                self.boostAtack = characterGENERATORparameters.boosters["boosterAtack"][2]
+                self.boostWounds = characterGENERATORparameters.boosters["boosterWounds"][2]
             else:
-                self.bustAtack = 0
-                self.bustWounds = characterGENERATORparameters.busters["busterWounds"][1]
+                self.boostAtack = 0
+                self.boostWounds = characterGENERATORparameters.boosters["boosterWounds"][1]
 
     def __str__(self):
         if self.language in ("ENG", "Eng", "eng", "en", "e"):

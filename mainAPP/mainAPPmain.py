@@ -1,10 +1,16 @@
 import tkinter as tk
 from tkinter import font
+
+import characterGENERATOR.characterGENERATORparameters
 import mainAPPvariables
 import mainAPPdefinitions
 
 
 def execute(event=None):
+    # resultsBox.insert(tk.END, "hh")
+    # resultsBox.insert(tk.END, '\n')
+    # resultsBox.see(tk.END)
+
     def command_list(userCommand):
 
         if userCommand in mainAPPdefinitions.commandDictionary:
@@ -134,4 +140,11 @@ resultsBox.place(x=int((mainAPPvariables.commandBoxPlaceX + mainAPPvariables.com
                         mainAPPvariables.globalOffset) * mainAPPvariables.windowSizeConverter),
                  height=int(mainAPPvariables.resultsBoxHeight * mainAPPvariables.windowSizeConverter))
 
+resultsBox.insert(tk.END, characterGENERATOR.characterGENERATORparameters.welcomeText, mainAPPdefinitions.help_me())
+
+
 window.mainloop()
+
+resultsBox.insert(tk.END, "hh")
+resultsBox.insert(tk.END, '\n')
+resultsBox.see(tk.END)

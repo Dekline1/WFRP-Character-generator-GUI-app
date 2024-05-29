@@ -216,7 +216,7 @@ def step_humanoid_classMainStats(characterClass):
     return classMainStats
 
 
-def step_humanoid(bust):
+def step_humanoid(boost):
     while True:
         race = step_humanoid_race()
         name = step_humanoid_name()
@@ -225,7 +225,7 @@ def step_humanoid(bust):
         howmany = int(input("How many characters do you need?"))
         for _ in range(howmany):
             stepHumanoid = characterGENERATORclasses.StepHumanoid(race, name, characterClass, classMainStats,
-                                                                  bust, language)
+                                                                  boost, language)
             print(stepHumanoid)
         if not repeat():
             wait_a_moment()
@@ -246,15 +246,15 @@ def main_menu():
         """))
 
         if choiceMainMenu == 1:
-            step_humanoid(bust=0)
+            step_humanoid(boost=0)
         elif choiceMainMenu == 2:
             random_humanoid()
         elif choiceMainMenu == 3:
-            step_humanoid(bust=1)
+            step_humanoid(boost=1)
         elif choiceMainMenu == 4:
-            step_humanoid(bust=2)
+            step_humanoid(boost=2)
         elif choiceMainMenu == 5:
-            step_humanoid(bust=3)
+            step_humanoid(boost=3)
         elif choiceMainMenu == 6:
             global language
             language = "pl"
