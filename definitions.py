@@ -17,7 +17,6 @@ def back_log():
     return "[sample text] This is back log output"
 
 
-
 def send_report():
     return "[sample text] This is the send report function"
 

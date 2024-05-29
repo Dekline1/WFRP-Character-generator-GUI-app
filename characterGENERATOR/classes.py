@@ -4,6 +4,7 @@ import faker
 import copy
 
 
+
 class RandomHumanoid:
     instances = {}
 

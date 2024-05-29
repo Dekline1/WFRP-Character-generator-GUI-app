@@ -4,6 +4,7 @@ __pycache__/
 *.pyc
 working.py
 *.txt
+!requirements.txt
 *.csv
 roboczy.py
 roboczy2.py
