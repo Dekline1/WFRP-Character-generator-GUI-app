@@ -1,6 +1,6 @@
 import time
-import classes
-import parameters
+import characterGENERATORclasses
+import characterGENERATORparameters
 from Levenshtein import distance as levenshtein
 
 
@@ -73,8 +73,8 @@ Cechy drugorzędne:
 
 
 def save_to_file():
-    globalInstances = classes.RandomHumanoid.instances.copy()
-    globalInstances.update(classes.StepHumanoid.instances)
+    globalInstances = characterGENERATORclasses.RandomHumanoid.instances.copy()
+    globalInstances.update(characterGENERATORclasses.StepHumanoid.instances)
     results = show_results(globalInstances)
     wait_a_moment()
     if results:
@@ -106,7 +106,7 @@ def random_humanoid():
     while True:
         howmany = int(input("How many characters do you need?"))
         for _ in range(howmany):
-            randomHumanoid = classes.RandomHumanoid(language)
+            randomHumanoid = characterGENERATORclasses.RandomHumanoid(language)
             print(randomHumanoid)
         if not repeat():
             wait_a_moment()
@@ -115,20 +115,20 @@ def random_humanoid():
 
 def step_humanoid_race():
     chosenRace = int(input(f"""Chose race
-    1. {parameters.humanoidRacesStats["Human"]["race"]}
-    2. {parameters.humanoidRacesStats["Elf"]["race"]}
-    3. {parameters.humanoidRacesStats["Dwarf"]["race"]}
-    4. {parameters.humanoidRacesStats["Halfing"]["race"]}
+    1. {characterGENERATORparameters.humanoidRacesStats["Human"]["race"]}
+    2. {characterGENERATORparameters.humanoidRacesStats["Elf"]["race"]}
+    3. {characterGENERATORparameters.humanoidRacesStats["Dwarf"]["race"]}
+    4. {characterGENERATORparameters.humanoidRacesStats["Halfing"]["race"]}
     5. Random
             """))
     if chosenRace == 1:
-        race = parameters.humanoidRacesStats["Human"]["race"]
+        race = characterGENERATORparameters.humanoidRacesStats["Human"]["race"]
     elif chosenRace == 2:
-        race = parameters.humanoidRacesStats["Elf"]["race"]
+        race = characterGENERATORparameters.humanoidRacesStats["Elf"]["race"]
     elif chosenRace == 3:
-        race = parameters.humanoidRacesStats["Dwarf"]["race"]
+        race = characterGENERATORparameters.humanoidRacesStats["Dwarf"]["race"]
     elif chosenRace == 4:
-        race = parameters.humanoidRacesStats["Halfing"]["race"]
+        race = characterGENERATORparameters.humanoidRacesStats["Halfing"]["race"]
     elif chosenRace == 5:
         race = None
     else:
@@ -154,39 +154,39 @@ def step_humanoid_class():
 
 Three chosen attributes will be higher than other ones.
 
-    1. {parameters.humanoidCharacterClasses["Warrior"]["class"]}
-            {parameters.humanoidCharacterClasses["Warrior"]["description"]}
-            {parameters.humanoidCharacterClasses["Warrior"]["classMainStats"]}
-    2. {parameters.humanoidCharacterClasses["Swordsman"]["class"]}
-            {parameters.humanoidCharacterClasses["Swordsman"]["description"]}
-            {parameters.humanoidCharacterClasses["Swordsman"]["classMainStats"]}
-    3. {parameters.humanoidCharacterClasses["Marksman"]["class"]}
-            {parameters.humanoidCharacterClasses["Marksman"]["description"]}
-            {parameters.humanoidCharacterClasses["Marksman"]["classMainStats"]}
-    4. {parameters.humanoidCharacterClasses["Thief"]["class"]}
-            {parameters.humanoidCharacterClasses["Thief"]["description"]}
-            {parameters.humanoidCharacterClasses["Thief"]["classMainStats"]}
-    5. {parameters.humanoidCharacterClasses["Intellectual"]["class"]}
-            {parameters.humanoidCharacterClasses["Intellectual"]["description"]}
-            {parameters.humanoidCharacterClasses["Intellectual"]["classMainStats"]}
-    6. {parameters.humanoidCharacterClasses["Magician"]["class"]}
-            {parameters.humanoidCharacterClasses["Magician"]["description"]}
-            {parameters.humanoidCharacterClasses["Magician"]["classMainStats"]}
+    1. {characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"]}
+            {characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["description"]}
+            {characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["classMainStats"]}
+    2. {characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"]}
+            {characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["description"]}
+            {characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["classMainStats"]}
+    3. {characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["class"]}
+            {characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["description"]}
+            {characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["classMainStats"]}
+    4. {characterGENERATORparameters.humanoidCharacterClasses["Thief"]["class"]}
+            {characterGENERATORparameters.humanoidCharacterClasses["Thief"]["description"]}
+            {characterGENERATORparameters.humanoidCharacterClasses["Thief"]["classMainStats"]}
+    5. {characterGENERATORparameters.humanoidCharacterClasses["Intellectual"]["class"]}
+            {characterGENERATORparameters.humanoidCharacterClasses["Intellectual"]["description"]}
+            {characterGENERATORparameters.humanoidCharacterClasses["Intellectual"]["classMainStats"]}
+    6. {characterGENERATORparameters.humanoidCharacterClasses["Magician"]["class"]}
+            {characterGENERATORparameters.humanoidCharacterClasses["Magician"]["description"]}
+            {characterGENERATORparameters.humanoidCharacterClasses["Magician"]["classMainStats"]}
     7. Make it random.
      """))
 
     if chosenCharacterClass == 1:
-        characterClass = parameters.humanoidCharacterClasses["Warrior"]["class"]
+        characterClass = characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"]
     elif chosenCharacterClass == 2:
-        characterClass = parameters.humanoidCharacterClasses["Swordsman"]["class"]
+        characterClass = characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"]
     elif chosenCharacterClass == 3:
-        characterClass = parameters.humanoidCharacterClasses["Marksman"]["class"]
+        characterClass = characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["class"]
     elif chosenCharacterClass == 4:
-        characterClass = parameters.humanoidCharacterClasses["Thief"]["class"]
+        characterClass = characterGENERATORparameters.humanoidCharacterClasses["Thief"]["class"]
     elif chosenCharacterClass == 5:
-        characterClass = parameters.humanoidCharacterClasses["Intellectual"]["class"]
+        characterClass = characterGENERATORparameters.humanoidCharacterClasses["Intellectual"]["class"]
     elif chosenCharacterClass == 6:
-        characterClass = parameters.humanoidCharacterClasses["Magician"]["class"]
+        characterClass = characterGENERATORparameters.humanoidCharacterClasses["Magician"]["class"]
     elif chosenCharacterClass == 7:
         characterClass = None
     else:
@@ -196,19 +196,19 @@ Three chosen attributes will be higher than other ones.
 
 
 def step_humanoid_classMainStats(characterClass):
-    if characterClass == parameters.humanoidCharacterClasses["Warrior"]["class"]:
-        classMainStats = parameters.humanoidCharacterClasses["Warrior"]["classMainStats"]
-    elif characterClass == parameters.humanoidCharacterClasses["Swordsman"]["class"]:
-        classMainStats = parameters.humanoidCharacterClasses["Swordsman"]["classMainStats"]
-    elif characterClass == parameters.humanoidCharacterClasses["Marksman"]["class"]:
-        classMainStats = parameters.humanoidCharacterClasses["Marksman"]["classMainStats"]
-    elif characterClass == parameters.humanoidCharacterClasses["Thief"]["class"]:
-        classMainStats = parameters.humanoidCharacterClasses["Thief"]["classMainStats"]
-    elif characterClass == parameters.humanoidCharacterClasses["Intellectual"]["class"]:
-        classMainStats = parameters.humanoidCharacterClasses["Intellectual"]["classMainStats"]
-    elif characterClass == parameters.humanoidCharacterClasses["Magician"]["class"]:
-        classMainStats = parameters.humanoidCharacterClasses["Magician"]["classMainStats"]
-    elif characterClass == None:
+    if characterClass == characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"]:
+        classMainStats = characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["classMainStats"]
+    elif characterClass == characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"]:
+        classMainStats = characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["classMainStats"]
+    elif characterClass == characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["class"]:
+        classMainStats = characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["classMainStats"]
+    elif characterClass == characterGENERATORparameters.humanoidCharacterClasses["Thief"]["class"]:
+        classMainStats = characterGENERATORparameters.humanoidCharacterClasses["Thief"]["classMainStats"]
+    elif characterClass == characterGENERATORparameters.humanoidCharacterClasses["Intellectual"]["class"]:
+        classMainStats = characterGENERATORparameters.humanoidCharacterClasses["Intellectual"]["classMainStats"]
+    elif characterClass == characterGENERATORparameters.humanoidCharacterClasses["Magician"]["class"]:
+        classMainStats = characterGENERATORparameters.humanoidCharacterClasses["Magician"]["classMainStats"]
+    elif characterClass is None:
         classMainStats = None
     else:
         classMainStats = None
@@ -224,8 +224,8 @@ def step_humanoid(bust):
         classMainStats = step_humanoid_classMainStats(characterClass)
         howmany = int(input("How many characters do you need?"))
         for _ in range(howmany):
-            stepHumanoid = classes.StepHumanoid(race, name, characterClass,
-                                                classMainStats, bust, language)
+            stepHumanoid = characterGENERATORclasses.StepHumanoid(race, name, characterClass, classMainStats,
+                                                                  bust, language)
             print(stepHumanoid)
         if not repeat():
             wait_a_moment()
@@ -235,33 +235,33 @@ def step_humanoid(bust):
 def main_menu():
     while True:
         choiceMainMenu = int(input(f"""What would you do?:
-        {parameters.mainMenu[0]} 
-        {parameters.mainMenu[1]}
-        {parameters.mainMenu[2]}
-        {parameters.mainMenu[3]}
-        {parameters.mainMenu[4]}
-        {parameters.mainMenu[5]}
-        {parameters.mainMenu[6]}
-        {parameters.mainMenu[7]}
+        {characterGENERATORparameters.mainMenu[0]} 
+        {characterGENERATORparameters.mainMenu[1]}
+        {characterGENERATORparameters.mainMenu[2]}
+        {characterGENERATORparameters.mainMenu[3]}
+        {characterGENERATORparameters.mainMenu[4]}
+        {characterGENERATORparameters.mainMenu[5]}
+        {characterGENERATORparameters.mainMenu[6]}
+        {characterGENERATORparameters.mainMenu[7]}
         """))
 
-        if (choiceMainMenu == 1):
+        if choiceMainMenu == 1:
             step_humanoid(bust=0)
-        elif (choiceMainMenu == 2):
+        elif choiceMainMenu == 2:
             random_humanoid()
-        elif (choiceMainMenu == 3):
+        elif choiceMainMenu == 3:
             step_humanoid(bust=1)
-        elif (choiceMainMenu == 4):
+        elif choiceMainMenu == 4:
             step_humanoid(bust=2)
-        elif (choiceMainMenu == 5):
+        elif choiceMainMenu == 5:
             step_humanoid(bust=3)
-        elif (choiceMainMenu == 6):
+        elif choiceMainMenu == 6:
             global language
             language = "pl"
             continue
-        elif (choiceMainMenu == 7):
+        elif choiceMainMenu == 7:
             save_to_file()
-        elif (choiceMainMenu == 8):
+        elif choiceMainMenu == 8:
             break
         else:
             print("Please choose 1-6 option")
@@ -269,7 +269,7 @@ def main_menu():
             continue
 
 
-print(parameters.welcomeText)
+print(characterGENERATORparameters.welcomeText)
 global language
 language = "eng"
 main_menu()
