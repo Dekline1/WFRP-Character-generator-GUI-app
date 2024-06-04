@@ -95,7 +95,8 @@ id:{self.simpleId}
 class StepHumanoid:
     instances = {}
 
-    def __init__(self, race, name, characterClass, classMainStats, boost, language="eng"):
+    def __init__(self, race, name, characterClass, classMainStats, boost, setInput, language="eng"):
+        self.setInput = setInput
         self.boost = boost
         self.characterClass = self.characterClassChoice(characterClass)
         self.booster()
@@ -237,6 +238,7 @@ Main characteristics:
 Second characteristics: 
     a:{self.a}, w:{self.w}, sb:{self.sb}, tb:{self.tb}, m:{self.m}, mag:{self.mag}, ip:{self.ip}, fp:{self.fp}
 id:{self.simpleId}
+set input:{self.setInput}
 """)
         else:
             return (f"""
@@ -249,6 +251,7 @@ Cechy główne:
 Cechy drugorzędne: 
     a:{self.a}, zyw:{self.w}, s:{self.sb}, wt:{self.tb}, sz:{self.m}, mag:{self.mag}, po:{self.ip}, ps:{self.fp}
 id:{self.simpleId}
+dane wejściowe: {self.setInput}
 """)
 
     @staticmethod

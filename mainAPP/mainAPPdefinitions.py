@@ -1,8 +1,12 @@
+import random
+import os
+
 import characterGENERATOR.characterGENERATORparameters
 import characterGENERATOR.characterGENERATORclasses
 import characterGENERATOR.characterGENERATORmain
 import mainAPPvariables
 
+language = "eng"
 
 def help_me(userCommand=None):
     help_text = "\nList of usable commands:\n\n"
@@ -23,25 +27,37 @@ def back_log(userCommand=None):
     return "[sample text] This is back log output"
 
 
+def read_file(userCommand=None):
+    with open("Characters.txt", 'r', encoding="utf-8") as file:
+        content = file.read()
+    return content
+
+def delete_file(userCommand=None):
+    file_path = "Characters.txt"
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        return "File removed"
+    else:
+        return "File doesn't exist"
+
+
 def advanced(userCommand):
     if userCommand[0] == "s":
         return step_humanoid_execute(userCommand)
-    elif userCommand[0] == "r":
-        return random_humanoid_execute(userCommand)
     else:
         return (mainAPPvariables.defaultUnknownCommandLine1 + userCommand
                 + mainAPPvariables.defaultUnknownCommandLine2)
 
 
 def step_humanoid_execute(userCommand):
-    language = "eng"
     race = None
     boost = None
     characterClass = None
     classMainStats = None
     name = None
+    setInput = userCommand
 
-    if (int(userCommand[1]) <= 3) and (int(userCommand[2]) <= 3) and (int(userCommand[3]) <= 6):
+    if (len(userCommand) == 4) and (int(userCommand[1]) <= 4) and (int(userCommand[2]) <= 4) and (int(userCommand[3]) <= 6):
 
         if int(userCommand[1]) == 0:
             boost = int(0)
@@ -51,6 +67,8 @@ def step_humanoid_execute(userCommand):
             boost = int(2)
         elif int(userCommand[1]) == 3:
             boost = int(3)
+        elif int(userCommand[1]) == 4:
+            boost = random.randint(0, 3)
 
         if int(userCommand[2]) == 0:
             race = characterGENERATOR.characterGENERATORparameters.racesTuple[0]
@@ -60,6 +78,8 @@ def step_humanoid_execute(userCommand):
             race = characterGENERATOR.characterGENERATORparameters.racesTuple[2]
         elif int(userCommand[2]) == 3:
             race = characterGENERATOR.characterGENERATORparameters.racesTuple[3]
+        elif int(userCommand[2]) == 4:
+            race = None
 
         if userCommand[3] == "0":
             characterClass = characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Warrior"][
@@ -90,17 +110,29 @@ def step_humanoid_execute(userCommand):
                 "class"]
             classMainStats = characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Magician"][
                 "classMainStats"]
+        elif userCommand[3] == "6":
+            characterClass = None
+            classMainStats = None
 
         stepHumanoid = characterGENERATOR.characterGENERATORclasses.StepHumanoid(race, name, characterClass,
-                                                                                 classMainStats, boost, language)
+                                                                                 classMainStats, boost, setInput, language)
+        with open("Characters.txt", 'a+', encoding="utf-8") as file:
+            file.write(str(stepHumanoid))
+
         return stepHumanoid
+
     else:
         return (mainAPPvariables.defaultUnknownCommandLine1 + userCommand
                 + mainAPPvariables.defaultUnknownCommandLine2)
 
 
 def random_humanoid_execute(userCommand):
-    pass
+    randomHumanoid = characterGENERATOR.characterGENERATORclasses.RandomHumanoid(language)
+
+    with open("Characters.txt", 'a+', encoding="utf-8") as file:
+        file.write(str(randomHumanoid))
+
+    return randomHumanoid
 
 
 def step_humanoid_info(userCommand=None):
@@ -112,12 +144,14 @@ Boost :
     {characterGENERATOR.characterGENERATORparameters.guiBoosters[1]} [1]
     {characterGENERATOR.characterGENERATORparameters.guiBoosters[2]} [2]
     {characterGENERATOR.characterGENERATORparameters.guiBoosters[3]} [3]
+    Random [4]
                 
 Race :  
     {characterGENERATOR.characterGENERATORparameters.racesTuple[0]} [0]
     {characterGENERATOR.characterGENERATORparameters.racesTuple[1]} [1]
     {characterGENERATOR.characterGENERATORparameters.racesTuple[2]} [2]
     {characterGENERATOR.characterGENERATORparameters.racesTuple[3]} [3]
+    Random [4]
     
 Character class :
     {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"]} [0]
@@ -126,7 +160,8 @@ Character class :
     {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Thief"]["class"]} [3]
     {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Intellectual"]["class"]} [4]
     {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Magician"]["class"]} [5]
-
+    Random [6]
+    
 Example :
 Create step by step humanoid, with no boost, Dwarf, Swordsman: s021
     
@@ -181,8 +216,11 @@ commandDictionary = {
     "h": [help_me, "[h]elp - display list of usable commands"],
     "c": [clear, "[c]lear - clean output data box"],
     "e": [exit_app, "[e]xit the application"],
+    "r": [read_file, "[r]ead file"],
+    "d": [delete_file, "[d]elete file"],
 
     "1": [step_humanoid_info, "[1] - Create humanoid - step by step"],
+    "2": [random_humanoid_execute, "[2] - Create humanoid fully random, no boost"],
 
     "7": [character_classes_info, "[7] - More information about character classes"],
     "8": [boosters_info, "[8] - More information about boosters"],
@@ -191,5 +229,6 @@ commandDictionary = {
 
 commandListAdvanced = [
     "s",  # step_humanoid_execute
-    "r"  # random_humanoid_execute
+
+
 ]

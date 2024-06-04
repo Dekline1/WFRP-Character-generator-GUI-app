@@ -15,7 +15,7 @@ def execute(event=None):
 
         if userCommand in mainAPPdefinitions.commandDictionary:
             return mainAPPdefinitions.commandDictionary[userCommand][0](userCommand)
-        elif (userCommand[0] in mainAPPdefinitions.commandListAdvanced) and (len(userCommand) == 4):
+        elif userCommand[0] in mainAPPdefinitions.commandListAdvanced:
             return mainAPPdefinitions.advanced(userCommand)
         else:
             return (mainAPPvariables.defaultUnknownCommandLine1 + userCommand
