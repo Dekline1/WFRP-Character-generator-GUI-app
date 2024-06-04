@@ -1,4 +1,4 @@
-import characterGENERATORparameters
+import characterGENERATOR.characterGENERATORparameters
 import random
 import faker
 import copy
@@ -10,25 +10,25 @@ class RandomHumanoid:
     def __init__(self, language="eng"):
         self.language = language
         self.race = random.choice(
-            [characterGENERATORparameters.humanoidRacesStats["Human"]["race"],
-             characterGENERATORparameters.humanoidRacesStats["Elf"]["race"],
-             characterGENERATORparameters.humanoidRacesStats["Dwarf"]["race"],
-             characterGENERATORparameters.humanoidRacesStats["Halfing"]["race"]])
+            [characterGENERATOR.characterGENERATORparameters.humanoidRacesStats["Human"]["race"],
+             characterGENERATOR.characterGENERATORparameters.humanoidRacesStats["Elf"]["race"],
+             characterGENERATOR.characterGENERATORparameters.humanoidRacesStats["Dwarf"]["race"],
+             characterGENERATOR.characterGENERATORparameters.humanoidRacesStats["Halfing"]["race"]])
         self.self_name()
         self.simpleId = self.simple_id()
         for stat in ["ws", "bs", "s", "t", "ag", "int", "wp", "fel"]:
-            setattr(self, stat, characterGENERATORparameters.humanoidRacesStats[self.race][stat]
+            setattr(self, stat, characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race][stat]
                     + self.generate_main_stat_random())
-        self.a = characterGENERATORparameters.humanoidRacesStats[self.race]["a"]
-        self.w = random.choices(characterGENERATORparameters.humanoidRacesStats[self.race]["wValues"],
-                                characterGENERATORparameters.humanoidRacesStats[self.race]["wWeights"])[0]
+        self.a = characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["a"]
+        self.w = random.choices(characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["wValues"],
+                                characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["wWeights"])[0]
         self.sb = (self.s // 10)
         self.tb = (self.t // 10)
-        self.m = characterGENERATORparameters.humanoidRacesStats[self.race]["m"]
-        self.mag = characterGENERATORparameters.humanoidRacesStats[self.race]["mag"]
-        self.ip = characterGENERATORparameters.humanoidRacesStats[self.race]["ip"]
-        self.fp = random.choices(characterGENERATORparameters.humanoidRacesStats[self.race]["fpValues"],
-                                 characterGENERATORparameters.humanoidRacesStats[self.race]["fpWeights"])[0]
+        self.m = characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["m"]
+        self.mag = characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["mag"]
+        self.ip = characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["ip"]
+        self.fp = random.choices(characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["fpValues"],
+                                 characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["fpWeights"])[0]
 
         RandomHumanoid.instances[self.simpleId] = [self.race, self.name, self.ws, self.bs,
                                                    self.s, self.t, self.ag, self.int, self.wp, self.fel,
@@ -84,8 +84,8 @@ id:{self.simpleId}
 """)
 
     def simple_id(self):
-        simpleId = ''.join([self.firstName[:characterGENERATORparameters.simpleIdRules["lenName"]],
-                            self.race[:characterGENERATORparameters.simpleIdRules["lenRace"]],
+        simpleId = ''.join([self.firstName[:characterGENERATOR.characterGENERATORparameters.simpleIdRules["lenName"]],
+                            self.race[:characterGENERATOR.characterGENERATORparameters.simpleIdRules["lenRace"]],
                             str(random.randint(111, 999))])
         while simpleId in RandomHumanoid.instances:
             simpleId += str(random.randint(1, 9))
@@ -104,31 +104,31 @@ class StepHumanoid:
         self.name = self.nameChoice(name, self.race)
         self.simpleId = self.simple_id()
         self.randomStats = self.generate_main_stats_random()
-        self.stats = characterGENERATORparameters.stats
+        self.stats = characterGENERATOR.characterGENERATORparameters.stats
         self.classStatsChoice(classMainStats)
         self.baseRandomStats = copy.copy(self.randomStats)
 
         for stat in self.classMainStats:
-            setattr(self, stat, max(self.randomStats) + characterGENERATORparameters.humanoidRacesStats[self.race][stat]
+            setattr(self, stat, max(self.randomStats) + characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race][stat]
                     + self.boostMainStats)
             self.randomStats.pop()
 
         for stat in self.classOtherStats:
-            setattr(self, stat, max(self.randomStats) + characterGENERATORparameters.humanoidRacesStats[self.race][stat]
+            setattr(self, stat, max(self.randomStats) + characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race][stat]
                     + self.boostOtherStats)
             self.randomStats.pop()
 
-        self.a = characterGENERATORparameters.humanoidRacesStats[self.race]["a"] + self.boostAtack
-        self.w = (random.choices(characterGENERATORparameters.humanoidRacesStats[self.race]["wValues"],
-                                 characterGENERATORparameters.humanoidRacesStats[self.race]["wWeights"])[0]
+        self.a = characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["a"] + self.boostAtack
+        self.w = (random.choices(characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["wValues"],
+                                 characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["wWeights"])[0]
                   + self.boostWounds)
         self.sb = (self.s // 10)
         self.tb = (self.t // 10)
-        self.m = characterGENERATORparameters.humanoidRacesStats[self.race]["m"]
-        self.mag = characterGENERATORparameters.humanoidRacesStats[self.race]["mag"]
-        self.ip = characterGENERATORparameters.humanoidRacesStats[self.race]["ip"]
-        self.fp = random.choices(characterGENERATORparameters.humanoidRacesStats[self.race]["fpValues"],
-                                 characterGENERATORparameters.humanoidRacesStats[self.race]["fpWeights"])[0]
+        self.m = characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["m"]
+        self.mag = characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["mag"]
+        self.ip = characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["ip"]
+        self.fp = random.choices(characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["fpValues"],
+                                 characterGENERATOR.characterGENERATORparameters.humanoidRacesStats[self.race]["fpWeights"])[0]
 
         StepHumanoid.instances[self.simpleId] = [self.race, self.name, self.ws, self.bs,
                                                  self.s, self.t, self.ag, self.int, self.wp, self.fel,
@@ -140,10 +140,10 @@ class StepHumanoid:
             return race
         else:
             return random.choice(
-                [characterGENERATORparameters.humanoidRacesStats["Human"]["race"],
-                 characterGENERATORparameters.humanoidRacesStats["Elf"]["race"],
-                 characterGENERATORparameters.humanoidRacesStats["Dwarf"]["race"],
-                 characterGENERATORparameters.humanoidRacesStats["Halfing"]["race"]])
+                [characterGENERATOR.characterGENERATORparameters.humanoidRacesStats["Human"]["race"],
+                 characterGENERATOR.characterGENERATORparameters.humanoidRacesStats["Elf"]["race"],
+                 characterGENERATOR.characterGENERATORparameters.humanoidRacesStats["Dwarf"]["race"],
+                 characterGENERATOR.characterGENERATORparameters.humanoidRacesStats["Halfing"]["race"]])
 
     def nameChoice(self, name, race):
         if name is not None:
@@ -168,22 +168,22 @@ class StepHumanoid:
             return characterClass
         else:
             return random.choice(
-                [characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"],
-                 characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"],
-                 characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["class"],
-                 characterGENERATORparameters.humanoidCharacterClasses["Thief"]["class"],
-                 characterGENERATORparameters.humanoidCharacterClasses["Intellectual"]["class"],
-                 characterGENERATORparameters.humanoidCharacterClasses["Magician"]["class"]])
+                [characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"],
+                 characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"],
+                 characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["class"],
+                 characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Thief"]["class"],
+                 characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Intellectual"]["class"],
+                 characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Magician"]["class"]])
 
     def classStatsChoice(self, classMainStats):
         if classMainStats is not None:
             self.classMainStats = classMainStats
-            self.classOtherStats = [stat for stat in characterGENERATORparameters.stats if
+            self.classOtherStats = [stat for stat in characterGENERATOR.characterGENERATORparameters.stats if
                                     stat not in self.classMainStats]
         else:
-            self.classMainStats = characterGENERATORparameters.humanoidCharacterClasses[self.characterClass][
+            self.classMainStats = characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses[self.characterClass][
                 "classMainStats"]
-            self.classOtherStats = [stat for stat in characterGENERATORparameters.stats if
+            self.classOtherStats = [stat for stat in characterGENERATOR.characterGENERATORparameters.stats if
                                     stat not in self.classMainStats]
 
     def booster(self):
@@ -192,38 +192,38 @@ class StepHumanoid:
         self.boostAtack = 0
         self.boostWounds = 0
         if self.boost == 1:
-            self.boostMainStats = characterGENERATORparameters.boosters["boostersMainStats"][0]
-            self.boostOtherStats = characterGENERATORparameters.boosters["boostersOtherStats"][0]
-            if self.characterClass in [characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"],
-                                       characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"],
-                                       characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["class"]]:
-                self.boostAtack = characterGENERATORparameters.boosters["boosterAtack"][0]
-                self.boostWounds = characterGENERATORparameters.boosters["boosterWounds"][0]
+            self.boostMainStats = characterGENERATOR.characterGENERATORparameters.boosters["boostersMainStats"][0]
+            self.boostOtherStats = characterGENERATOR.characterGENERATORparameters.boosters["boostersOtherStats"][0]
+            if self.characterClass in [characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"],
+                                       characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"],
+                                       characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["class"]]:
+                self.boostAtack = characterGENERATOR.characterGENERATORparameters.boosters["boosterAttack"][0]
+                self.boostWounds = characterGENERATOR.characterGENERATORparameters.boosters["boosterWounds"][0]
             else:
                 self.boostAtack = 0
                 self.boostWounds = 0
         elif self.boost == 2:
-            self.boostMainStats = characterGENERATORparameters.boosters["boostersMainStats"][1]
-            self.boostOtherStats = characterGENERATORparameters.boosters["boostersOtherStats"][1]
-            if self.characterClass in [characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"],
-                                       characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"],
-                                       characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["class"]]:
-                self.boostAtack = characterGENERATORparameters.boosters["boosterAtack"][1]
-                self.boostWounds = characterGENERATORparameters.boosters["boosterWounds"][1]
+            self.boostMainStats = characterGENERATOR.characterGENERATORparameters.boosters["boostersMainStats"][1]
+            self.boostOtherStats = characterGENERATOR.characterGENERATORparameters.boosters["boostersOtherStats"][1]
+            if self.characterClass in [characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"],
+                                       characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"],
+                                       characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["class"]]:
+                self.boostAtack = characterGENERATOR.characterGENERATORparameters.boosters["boosterAttack"][1]
+                self.boostWounds = characterGENERATOR.characterGENERATORparameters.boosters["boosterWounds"][1]
             else:
                 self.boostAtack = 0
-                self.boostWounds = characterGENERATORparameters.boosters["boosterWounds"][0]
+                self.boostWounds = characterGENERATOR.characterGENERATORparameters.boosters["boosterWounds"][0]
         elif self.boost == 3:
-            self.boostMainStats = characterGENERATORparameters.boosters["boostersMainStats"][2]
-            self.boostOtherStats = characterGENERATORparameters.boosters["boostersOtherStats"][2]
-            if self.characterClass in [characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"],
-                                       characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"],
-                                       characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["class"]]:
-                self.boostAtack = characterGENERATORparameters.boosters["boosterAtack"][2]
-                self.boostWounds = characterGENERATORparameters.boosters["boosterWounds"][2]
+            self.boostMainStats = characterGENERATOR.characterGENERATORparameters.boosters["boostersMainStats"][2]
+            self.boostOtherStats = characterGENERATOR.characterGENERATORparameters.boosters["boostersOtherStats"][2]
+            if self.characterClass in [characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"],
+                                       characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"],
+                                       characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["class"]]:
+                self.boostAtack = characterGENERATOR.characterGENERATORparameters.boosters["boosterAttack"][2]
+                self.boostWounds = characterGENERATOR.characterGENERATORparameters.boosters["boosterWounds"][2]
             else:
                 self.boostAtack = 0
-                self.boostWounds = characterGENERATORparameters.boosters["boosterWounds"][1]
+                self.boostWounds = characterGENERATOR.characterGENERATORparameters.boosters["boosterWounds"][1]
 
     def __str__(self):
         if self.language in ("ENG", "Eng", "eng", "en", "e"):
@@ -268,8 +268,8 @@ id:{self.simpleId}
         return randomStats
 
     def simple_id(self):
-        simpleId = ''.join([self.name[:characterGENERATORparameters.simpleIdRules["lenName"]],
-                            self.race[:characterGENERATORparameters.simpleIdRules["lenRace"]],
+        simpleId = ''.join([self.name[:characterGENERATOR.characterGENERATORparameters.simpleIdRules["lenName"]],
+                            self.race[:characterGENERATOR.characterGENERATORparameters.simpleIdRules["lenRace"]],
                             str(random.randint(111, 999))])
         while simpleId in StepHumanoid.instances:
             simpleId += str(random.randint(1, 9))

@@ -19,6 +19,7 @@ boxTextColor = "#bcbec4"
 defaultUnknownCommandLine1 = "Unknown command: "
 defaultUnknownCommandLine2 = ", type: [h]elp"
 
+
 windowSizeConverter = 0.90  # default value = 0.9, min rational value is 0.4
 
 # all bellowed values is compared with windowSizeConverter in script
