@@ -16,6 +16,9 @@ windowBackGroundColor = "#1e1f22"
 boxBackGroundColor = "#2b2d30"
 boxTextColor = "#bcbec4"
 
+working_file = "Characters.txt"
+language = "eng"
+
 defaultUnknownCommandLine1 = "Unknown command: "
 defaultUnknownCommandLine2 = ", type: [h]elp"
 

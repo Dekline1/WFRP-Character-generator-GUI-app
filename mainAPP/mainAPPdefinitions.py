@@ -4,11 +4,8 @@ import datetime
 
 import characterGENERATOR.characterGENERATORparameters
 import characterGENERATOR.characterGENERATORclasses
-# import characterGENERATOR.characterGENERATORmain
-import mainAPPvariables
+import mainAPP.mainAPPvariables
 
-language = "eng"
-working_file = "Characters.txt"  # working file
 
 # userCommand=None is necessary for every def because of advanced defs.
 
@@ -32,7 +29,7 @@ def back_log(userCommand=None):
 
 
 def read_file(userCommand=None):
-    with open(working_file, 'r', encoding="utf-8") as file:
+    with open(mainAPP.mainAPPvariables.working_file, 'r', encoding="utf-8") as file:
         content = file.read()
     return content
 
@@ -42,20 +39,20 @@ def save_file(userCommand=None):
     next_file = current_time
     file_path_copy = f"Characters{next_file}.txt"
 
-    if os.path.exists(working_file):
-        with open(working_file, 'r') as source:
+    if os.path.exists(mainAPP.mainAPPvariables.working_file):
+        with open(mainAPP.mainAPPvariables.working_file, 'r') as source:
             with open(file_path_copy, 'w') as destination:
                 destination.write(source.read())
-        os.remove(working_file)
+        os.remove(mainAPP.mainAPPvariables.working_file)
         return (
-            f"Working file {working_file} successfully saved as {file_path_copy}."
-            f" Working {working_file} file removed. For delete all files type: 'd d' ")
+            f"Working file {mainAPP.mainAPPvariables.working_file} successfully saved as {file_path_copy}."
+            f" Working {mainAPP.mainAPPvariables.working_file} file removed. For delete all files type: 'd d' ")
 
     else:
         return "Working file doesn't exist. For delete all files type 'd d' "
 
 
-def delete_file_sudo(userCommand=None):
+def delete_file_sudo(userCommand):
     if userCommand[2] == "d":
         directory = os.getcwd()
         deleted_files = []
@@ -74,16 +71,6 @@ def delete_file_sudo(userCommand=None):
         return "No file deleted"
 
 
-def advanced(userCommand):
-    if userCommand[0] == "s":
-        return step_humanoid_execute(userCommand)
-    if userCommand[0] == "d":
-        return delete_file_sudo(userCommand)
-    else:
-        return (mainAPPvariables.defaultUnknownCommandLine1 + userCommand
-                + mainAPPvariables.defaultUnknownCommandLine2)
-
-
 def change_language(userCommand=None):
     global language
     language = "pl"
@@ -91,8 +78,18 @@ def change_language(userCommand=None):
 
 
 def save_working_file(data):
-    with open(working_file, 'a+', encoding="utf-8") as file:
+    with open(mainAPP.mainAPPvariables.working_file, 'a+', encoding="utf-8") as file:
         file.write(str(data))
+
+
+def advanced(userCommand):
+    if userCommand[0] == "s":
+        return step_humanoid_execute(userCommand)
+    if userCommand[0] == "d":
+        return delete_file_sudo(userCommand)
+    else:
+        return (mainAPP.mainAPPvariables.defaultUnknownCommandLine1 + userCommand
+                + mainAPP.mainAPPvariables.defaultUnknownCommandLine2)
 
 
 def step_humanoid_execute(userCommand):
@@ -163,21 +160,21 @@ def step_humanoid_execute(userCommand):
 
         stepHumanoid = characterGENERATOR.characterGENERATORclasses.StepHumanoid(race, name, characterClass,
                                                                                  classMainStats, boost, setInput,
-                                                                                 language)
+                                                                                 mainAPP.mainAPPvariables.language)
 
-        save_working_file(stepHumanoid)
+        mainAPP.mainAPPdefinitions.save_working_file(stepHumanoid)
 
         return stepHumanoid
 
     else:
-        return (mainAPPvariables.defaultUnknownCommandLine1 + userCommand
-                + mainAPPvariables.defaultUnknownCommandLine2)
+        return (mainAPP.mainAPPvariables.defaultUnknownCommandLine1 + userCommand
+                + mainAPP.mainAPPvariables.defaultUnknownCommandLine2)
 
 
 def random_humanoid_execute(userCommand):
-    randomHumanoid = characterGENERATOR.characterGENERATORclasses.RandomHumanoid(language)
+    randomHumanoid = characterGENERATOR.characterGENERATORclasses.RandomHumanoid(mainAPP.mainAPPvariables.language)
 
-    save_working_file(randomHumanoid)
+    mainAPP.mainAPPdefinitions.save_working_file(randomHumanoid)
 
     return randomHumanoid
 
@@ -192,14 +189,14 @@ Boost :
     {characterGENERATOR.characterGENERATORparameters.guiBoosters[2]} [2]
     {characterGENERATOR.characterGENERATORparameters.guiBoosters[3]} [3]
     Random [4]
-                
+
 Race :  
     {characterGENERATOR.characterGENERATORparameters.racesTuple[0]} [0]
     {characterGENERATOR.characterGENERATORparameters.racesTuple[1]} [1]
     {characterGENERATOR.characterGENERATORparameters.racesTuple[2]} [2]
     {characterGENERATOR.characterGENERATORparameters.racesTuple[3]} [3]
     Random [4]
-    
+
 Character class :
     {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"]} [0]
     {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"]} [1]
@@ -208,12 +205,12 @@ Character class :
     {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Intellectual"]["class"]} [4]
     {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Magician"]["class"]} [5]
     Random [6]
-    
+
 Example :
 Create step by step humanoid, with no boost, Dwarf, Swordsman: s021
-    
+
 Or ask for more information about Character classes [7] or boosters [8]
-        
+
 """
 
 
@@ -224,23 +221,23 @@ Three chosen attributes will be higher than other ones.
 1. {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["class"]}
         {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["description"]}
         {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Warrior"]["classMainStats"]}
-        
+
 2. {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["class"]}
         {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["description"]}
         {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Swordsman"]["classMainStats"]}
-        
+
 3. {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["class"]}
         {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["description"]}
         {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Marksman"]["classMainStats"]}
-        
+
 4. {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Thief"]["class"]}
         {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Thief"]["description"]}
         {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Thief"]["classMainStats"]}
-        
+
 5. {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Intellectual"]["class"]}
         {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Intellectual"]["description"]}
         {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Intellectual"]["classMainStats"]}
-        
+
 6. {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Magician"]["class"]}
         {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Magician"]["description"]}
         {characterGENERATOR.characterGENERATORparameters.humanoidCharacterClasses["Magician"]["classMainStats"]}
@@ -268,16 +265,19 @@ commandDictionary = {
 
     "l": [change_language, "[l] results language change / zmiana języka wyników"],
 
-    "1": [step_humanoid_info, "[1] - Create humanoid - step by step. Auto save."],
-    "2": [random_humanoid_execute, "[2] - Create humanoid fully random, no boost. Auto save"],
+    "1": [step_humanoid_info,
+          "[1] - Create humanoid - step by step. Auto save."],
+    "2": [random_humanoid_execute,
+          "[2] - Create humanoid fully random, no boost. Auto save"],
 
-    "7": [character_classes_info, "[7] - More information about character classes"],
+    "7": [character_classes_info,
+          "[7] - More information about character classes"],
     "8": [boosters_info, "[8] - More information about boosters"],
 
 }
 
 commandListAdvanced = [
     "s",  # step_humanoid_execute
-    "d",  # delete all characters files, sudo mode
+    "d",  # delete_file_sudo, delete all characters files, sudo mode
 
 ]

@@ -1,6 +1,6 @@
 import random
 
-# it's independent module, not part of characterGENERATORmain.py
+# it's independent module, not part of character generator
 
 while True:
     a = int(input(":"))
