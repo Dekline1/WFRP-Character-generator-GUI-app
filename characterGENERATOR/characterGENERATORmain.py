@@ -2,123 +2,145 @@ import time
 import characterGENERATOR.characterGENERATORclasses
 import characterGENERATOR.characterGENERATORparameters
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 from Levenshtein import distance as levenshtein
-
-if __name__ == "__main__":
-    global language
-    language = "eng"
-
-
-    def wait_a_moment(times=2):
-        for _ in range(times):
-            time.sleep(0.25)
-
-
-    def repeat():
-        repeatAsk = input("Repeat?").strip().lower()
-        return repeatAsk in ("tak", "t", "yes", "y")
-
-
-    def show_results(globalInstances):
-        if not globalInstances:
-            #print("No data in current database")
-            #return False
-            return "No data in current database"
-        else:
-            for key, value in globalInstances.items():
-                # print(dunder_str_for_save(key, value))
-                # return True
-                return (dunder_str_for_save(key, value))
-
-
-    def dunder_str_for_save(key, value):
-        try:
-            if language in ("ENG", "Eng", "eng", "en", "e"):
-                result = f"""
-    Id:{key}
-    Name:
-        {value[0]}, {value[18]}, {value[1]} 
-    Main characteristics:
-        ws:{value[2]}, bs:{value[3]}, s:{value[4]}, t:{value[5]}, ag:{value[6]}, int: {value[7]}, wp:{value[8]}, fel:{value[9]}
-    Second characteristics:
-        a:{value[10]}, w:{value[11]}, sb:{value[12]}, tb:{value[13]}, m:{value[14]}, mag:{value[15]}, ip:{value[16]}, fp:{value[17]}
-        """
-            else:
-                result = f"""
-    Id:{key}
-    Nazwa Postaci:
-        {value[0]}, {value[18]}, {value[1]} 
-    Cechy główne:
-        ww:{value[2]}, us:{value[3]}, k:{value[4]}, odp:{value[5]}, zr:{value[6]}, int: {value[7]}, sw:{value[8]}, ogd:{value[9]}
-    Cechy drugorzędne:
-        a:{value[10]}, żyw:{value[11]}, s:{value[12]}, wt:{value[13]}, sz:{value[14]}, mag:{value[15]}, po:{value[16]}, ps:{value[17]}
-        """
-
-        except IndexError:
-            if language in ("ENG", "Eng", "eng", "en", "e"):
-                result = f"""
-    Id:{key}
-    Name:
-        {value[0]}, {value[1]} 
-    Main characteristics:
-        ws:{value[2]}, bs:{value[3]}, s:{value[4]}, t:{value[5]}, ag:{value[6]}, int: {value[7]}, wp:{value[8]}, fel:{value[9]}
-    Second characteristics:
-        a:{value[10]}, w:{value[11]}, sb:{value[12]}, tb:{value[13]}, m:{value[14]}, mag:{value[15]}, ip:{value[16]}, fp:{value[17]}
-    
-        """
-            else:
-                result = f"""
-    Id:{key}
-    Nazwa Postaci:
-        {value[0]}, {value[1]} 
-    Cechy główne:
-        ww:{value[2]}, us:{value[3]}, k:{value[4]}, odp:{value[5]}, zr:{value[6]}, int: {value[7]}, sw:{value[8]}, ogd:{value[9]}
-    Cechy drugorzędne:
-        a:{value[10]}, żyw:{value[11]}, s:{value[12]}, wt:{value[13]}, sz:{value[14]}, mag:{value[15]}, po:{value[16]}, ps:{value[17]}
-        """
-        return result
-
-
-    def save_to_file():
-        print("sdfgdfgs")
-        globalInstances = characterGENERATOR.characterGENERATORclasses.RandomHumanoid.instances.copy()
-        globalInstances.update(characterGENERATOR.characterGENERATORclasses.StepHumanoid.instances)
-        results = show_results(globalInstances)
-        wait_a_moment()
-        if results:
-            print("Chosen character will be saved in *.txt file")
-            choice = str(input("Type [id] or save [a]: "))
-            if choice.lower() != "a":
-                bestMatch = check_id(choice, globalInstances)
-                value = globalInstances[bestMatch]
-                print("You wrote: " + bestMatch)
-
-                with open("Characters.txt", 'a+', encoding="utf-8") as file:
-                    file.write(dunder_str_for_save(bestMatch, value))
-
-            else:
-                with open("Characters.txt", 'a+', encoding="utf-8") as file:
-                    for key, value in globalInstances.items():
-                        file.write(dunder_str_for_save(key, value))
-
-
-    def check_id(choice, globalInstances):
-        levenshteinDict = {}
-        for key, value in globalInstances.items():
-            levenshteinDict[key] = (levenshtein(key.lower(), choice.lower()))
-        bestMatch = min(levenshteinDict, key=levenshteinDict.get)
-        return bestMatch
-
-
-    def random_humanoid():
-        while True:
-            howmany = int(input("How many characters do you need?"))
-            for _ in range(howmany):
-                randomHumanoid = characterGENERATOR.characterGENERATORclasses.RandomHumanoid(language)
-                print(randomHumanoid)
-            if not repeat():
-                wait_a_moment()
-                break
+#
+# if __name__ == "__main__":
+#     global language
+#     language = "eng"
+#
+#
+#     def wait_a_moment(times=2):
+#         for _ in range(times):
+#             time.sleep(0.25)
+#
+#
+#     def repeat():
+#         repeatAsk = input("Repeat?").strip().lower()
+#         return repeatAsk in ("tak", "t", "yes", "y")
+#
+#
+#     def show_results(globalInstances):
+#         if not globalInstances:
+#             #print("No data in current database")
+#             #return False
+#             return "No data in current database"
+#         else:
+#             for key, value in globalInstances.items():
+#                 # print(dunder_str_for_save(key, value))
+#                 # return True
+#                 return (dunder_str_for_save(key, value))
+#
+#
+#     def dunder_str_for_save(key, value):
+#         try:
+#             if language in ("ENG", "Eng", "eng", "en", "e"):
+#                 result = f"""
+#     Id:{key}
+#     Name:
+#         {value[0]}, {value[18]}, {value[1]}
+#     Main characteristics:
+#         ws:{value[2]}, bs:{value[3]}, s:{value[4]}, t:{value[5]}, ag:{value[6]}, int: {value[7]}, wp:{value[8]}, fel:{value[9]}
+#     Second characteristics:
+#         a:{value[10]}, w:{value[11]}, sb:{value[12]}, tb:{value[13]}, m:{value[14]}, mag:{value[15]}, ip:{value[16]}, fp:{value[17]}
+#         """
+#             else:
+#                 result = f"""
+#     Id:{key}
+#     Nazwa Postaci:
+#         {value[0]}, {value[18]}, {value[1]}
+#     Cechy główne:
+#         ww:{value[2]}, us:{value[3]}, k:{value[4]}, odp:{value[5]}, zr:{value[6]}, int: {value[7]}, sw:{value[8]}, ogd:{value[9]}
+#     Cechy drugorzędne:
+#         a:{value[10]}, żyw:{value[11]}, s:{value[12]}, wt:{value[13]}, sz:{value[14]}, mag:{value[15]}, po:{value[16]}, ps:{value[17]}
+#         """
+#
+#         except IndexError:
+#             if language in ("ENG", "Eng", "eng", "en", "e"):
+#                 result = f"""
+#     Id:{key}
+#     Name:
+#         {value[0]}, {value[1]}
+#     Main characteristics:
+#         ws:{value[2]}, bs:{value[3]}, s:{value[4]}, t:{value[5]}, ag:{value[6]}, int: {value[7]}, wp:{value[8]}, fel:{value[9]}
+#     Second characteristics:
+#         a:{value[10]}, w:{value[11]}, sb:{value[12]}, tb:{value[13]}, m:{value[14]}, mag:{value[15]}, ip:{value[16]}, fp:{value[17]}
+#
+#         """
+#             else:
+#                 result = f"""
+#     Id:{key}
+#     Nazwa Postaci:
+#         {value[0]}, {value[1]}
+#     Cechy główne:
+#         ww:{value[2]}, us:{value[3]}, k:{value[4]}, odp:{value[5]}, zr:{value[6]}, int: {value[7]}, sw:{value[8]}, ogd:{value[9]}
+#     Cechy drugorzędne:
+#         a:{value[10]}, żyw:{value[11]}, s:{value[12]}, wt:{value[13]}, sz:{value[14]}, mag:{value[15]}, po:{value[16]}, ps:{value[17]}
+#         """
+#         return result
+#
+#
+#     def save_to_file():
+#         print("sdfgdfgs")
+#         globalInstances = characterGENERATOR.characterGENERATORclasses.RandomHumanoid.instances.copy()
+#         globalInstances.update(characterGENERATOR.characterGENERATORclasses.StepHumanoid.instances)
+#         results = show_results(globalInstances)
+#         wait_a_moment()
+#         if results:
+#             print("Chosen character will be saved in *.txt file")
+#             choice = str(input("Type [id] or save [a]: "))
+#             if choice.lower() != "a":
+#                 bestMatch = check_id(choice, globalInstances)
+#                 value = globalInstances[bestMatch]
+#                 print("You wrote: " + bestMatch)
+#
+#                 with open("Characters.txt", 'a+', encoding="utf-8") as file:
+#                     file.write(dunder_str_for_save(bestMatch, value))
+#
+#             else:
+#                 with open("Characters.txt", 'a+', encoding="utf-8") as file:
+#                     for key, value in globalInstances.items():
+#                         file.write(dunder_str_for_save(key, value))
+#
+#
+#     def check_id(choice, globalInstances):
+#         levenshteinDict = {}
+#         for key, value in globalInstances.items():
+#             levenshteinDict[key] = (levenshtein(key.lower(), choice.lower()))
+#         bestMatch = min(levenshteinDict, key=levenshteinDict.get)
+#         return bestMatch
+#
+#
+#     def random_humanoid():
+#         while True:
+#             howmany = int(input("How many characters do you need?"))
+#             for _ in range(howmany):
+#                 randomHumanoid = characterGENERATOR.characterGENERATORclasses.RandomHumanoid(language)
+#                 print(randomHumanoid)
+#             if not repeat():
+#                 wait_a_moment()
+#                 break
 
     #
     # def step_humanoid_race():

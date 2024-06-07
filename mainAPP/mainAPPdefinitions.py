@@ -3,10 +3,11 @@ import os
 
 import characterGENERATOR.characterGENERATORparameters
 import characterGENERATOR.characterGENERATORclasses
-import characterGENERATOR.characterGENERATORmain
+#import characterGENERATOR.characterGENERATORmain
 import mainAPPvariables
 
 language = "eng"
+
 
 def help_me(userCommand=None):
     help_text = "\nList of usable commands:\n\n"
@@ -32,6 +33,7 @@ def read_file(userCommand=None):
         content = file.read()
     return content
 
+
 def delete_file(userCommand=None):
     file_path = "Characters.txt"
     if os.path.exists(file_path):
@@ -49,6 +51,12 @@ def advanced(userCommand):
                 + mainAPPvariables.defaultUnknownCommandLine2)
 
 
+def change_language(userCommand=None):
+    global language
+    language = "pl"
+    return "Zmieniono język wyników na polski"
+
+
 def step_humanoid_execute(userCommand):
     race = None
     boost = None
@@ -57,7 +65,8 @@ def step_humanoid_execute(userCommand):
     name = None
     setInput = userCommand
 
-    if (len(userCommand) == 4) and (int(userCommand[1]) <= 4) and (int(userCommand[2]) <= 4) and (int(userCommand[3]) <= 6):
+    if (len(userCommand) == 4) and (int(userCommand[1]) <= 4) and (int(userCommand[2]) <= 4) and (
+            int(userCommand[3]) <= 6):
 
         if int(userCommand[1]) == 0:
             boost = int(0)
@@ -115,7 +124,8 @@ def step_humanoid_execute(userCommand):
             classMainStats = None
 
         stepHumanoid = characterGENERATOR.characterGENERATORclasses.StepHumanoid(race, name, characterClass,
-                                                                                 classMainStats, boost, setInput, language)
+                                                                                 classMainStats, boost, setInput,
+                                                                                 language)
         with open("Characters.txt", 'a+', encoding="utf-8") as file:
             file.write(str(stepHumanoid))
 
@@ -217,7 +227,8 @@ commandDictionary = {
     "c": [clear, "[c]lear - clean output data box"],
     "e": [exit_app, "[e]xit the application"],
     "r": [read_file, "[r]ead file"],
-    "d": [delete_file, "[d]elete file"],
+    "sudo d": [delete_file, "[sudo d]elete file"],
+    "l": [change_language, "[l] language change / zmiana języka"],
 
     "1": [step_humanoid_info, "[1] - Create humanoid - step by step"],
     "2": [random_humanoid_execute, "[2] - Create humanoid fully random, no boost"],
@@ -229,6 +240,5 @@ commandDictionary = {
 
 commandListAdvanced = [
     "s",  # step_humanoid_execute
-
 
 ]
