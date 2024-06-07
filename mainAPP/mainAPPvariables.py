@@ -2,12 +2,12 @@ import math
 
 # by_script settable parameters & options (no parameters validation)
 
-backLogActive = True  # default value = True - backlog label and window visible
+backLogActive = False  # default value = True - backlog label and window visible
 fontSize = 14  # default value = 14 for bold, and 13 for normal. Non scalable
 backLogFontSize = 10  # default value = 10  Non scalable
 familyFont = "Source Code Pro"
 
-windowTitle = "GUI frame Tkinter"
+windowTitle = "WFRP Character Generator"
 labelCommandLineText = "Access terminal"
 labelResultsText = "Output data"
 labelBackLogText = "Back log"

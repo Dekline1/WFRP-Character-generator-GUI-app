@@ -40,9 +40,11 @@ def execute(event=None):
                 resultsBox.insert(tk.END, '\n')
                 resultsBox.see(tk.END)
 
-                backLogBox.insert(tk.END, mainAPP.mainAPPdefinitions.back_log())
-                backLogBox.insert(tk.END, '\n')
-                backLogBox.see(tk.END)
+                if mainAPP.mainAPPvariables.backLogActive:
+
+                    backLogBox.insert(tk.END, mainAPP.mainAPPdefinitions.back_log())
+                    backLogBox.insert(tk.END, '\n')
+                    backLogBox.see(tk.END)
 
     except Exception as e:
         result = str(e)
