@@ -1,13 +1,16 @@
 import random
 import os
+import datetime
 
 import characterGENERATOR.characterGENERATORparameters
 import characterGENERATOR.characterGENERATORclasses
-#import characterGENERATOR.characterGENERATORmain
+# import characterGENERATOR.characterGENERATORmain
 import mainAPPvariables
 
 language = "eng"
+working_file = "Characters.txt"  # working file
 
+# userCommand=None is necessary for every def because of advanced defs.
 
 def help_me(userCommand=None):
     help_text = "\nList of usable commands:\n\n"
@@ -29,23 +32,53 @@ def back_log(userCommand=None):
 
 
 def read_file(userCommand=None):
-    with open("Characters.txt", 'r', encoding="utf-8") as file:
+    with open(working_file, 'r', encoding="utf-8") as file:
         content = file.read()
     return content
 
 
-def delete_file(userCommand=None):
-    file_path = "Characters.txt"
-    if os.path.exists(file_path):
-        os.remove(file_path)
-        return "File removed"
+def save_file(userCommand=None):
+    current_time = datetime.datetime.now().strftime("%y%m%d%H%M%S")
+    next_file = current_time
+    file_path_copy = f"Characters{next_file}.txt"
+
+    if os.path.exists(working_file):
+        with open(working_file, 'r') as source:
+            with open(file_path_copy, 'w') as destination:
+                destination.write(source.read())
+        os.remove(working_file)
+        return (
+            f"Working file {working_file} successfully saved as {file_path_copy}."
+            f" Working {working_file} file removed. For delete all files type: 'd d' ")
+
     else:
-        return "File doesn't exist"
+        return "Working file doesn't exist. For delete all files type 'd d' "
+
+
+def delete_file_sudo(userCommand=None):
+    if userCommand[2] == "d":
+        directory = os.getcwd()
+        deleted_files = []
+
+        try:
+            for filename in os.listdir(directory):
+                if filename.endswith(".txt") and filename.startswith("Characters"):
+                    path_to_file = os.path.join(directory, filename)
+                    os.remove(path_to_file)
+                    deleted_files.append(filename)
+        except OSError as e:
+            return f"Error: {e}"
+
+        return f"Deleted files: {', '.join(deleted_files)}"
+    else:
+        return "No file deleted"
 
 
 def advanced(userCommand):
     if userCommand[0] == "s":
         return step_humanoid_execute(userCommand)
+    if userCommand[0] == "d":
+        return delete_file_sudo(userCommand)
     else:
         return (mainAPPvariables.defaultUnknownCommandLine1 + userCommand
                 + mainAPPvariables.defaultUnknownCommandLine2)
@@ -55,6 +88,11 @@ def change_language(userCommand=None):
     global language
     language = "pl"
     return "Zmieniono język wyników na polski"
+
+
+def save_working_file(data):
+    with open(working_file, 'a+', encoding="utf-8") as file:
+        file.write(str(data))
 
 
 def step_humanoid_execute(userCommand):
@@ -126,8 +164,8 @@ def step_humanoid_execute(userCommand):
         stepHumanoid = characterGENERATOR.characterGENERATORclasses.StepHumanoid(race, name, characterClass,
                                                                                  classMainStats, boost, setInput,
                                                                                  language)
-        with open("Characters.txt", 'a+', encoding="utf-8") as file:
-            file.write(str(stepHumanoid))
+
+        save_working_file(stepHumanoid)
 
         return stepHumanoid
 
@@ -139,8 +177,7 @@ def step_humanoid_execute(userCommand):
 def random_humanoid_execute(userCommand):
     randomHumanoid = characterGENERATOR.characterGENERATORclasses.RandomHumanoid(language)
 
-    with open("Characters.txt", 'a+', encoding="utf-8") as file:
-        file.write(str(randomHumanoid))
+    save_working_file(randomHumanoid)
 
     return randomHumanoid
 
@@ -226,12 +263,13 @@ commandDictionary = {
     "h": [help_me, "[h]elp - display list of usable commands"],
     "c": [clear, "[c]lear - clean output data box"],
     "e": [exit_app, "[e]xit the application"],
-    "r": [read_file, "[r]ead file"],
-    "sudo d": [delete_file, "[sudo d]elete file"],
-    "l": [change_language, "[l] language change / zmiana języka"],
+    "r": [read_file, "[r]ead working file"],
+    "sa": [save_file, "[sa]ve working file"],
 
-    "1": [step_humanoid_info, "[1] - Create humanoid - step by step"],
-    "2": [random_humanoid_execute, "[2] - Create humanoid fully random, no boost"],
+    "l": [change_language, "[l] results language change / zmiana języka wyników"],
+
+    "1": [step_humanoid_info, "[1] - Create humanoid - step by step. Auto save."],
+    "2": [random_humanoid_execute, "[2] - Create humanoid fully random, no boost. Auto save"],
 
     "7": [character_classes_info, "[7] - More information about character classes"],
     "8": [boosters_info, "[8] - More information about boosters"],
@@ -240,5 +278,6 @@ commandDictionary = {
 
 commandListAdvanced = [
     "s",  # step_humanoid_execute
+    "d",  # delete all characters files, sudo mode
 
 ]
